@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>{% block title %} Admin Dashboard {% endblock %}</title>
+    <!-- {% block head %} {% endblock %} -->
+    {% block css %} {% endblock %}
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+
+            <h2>Admin</h2>
+            <ul>
+                <li><a href="{% url 'admindashboard' %}"><i class="bi bi-house-door"></i>Dashboard</a></li>
+                <li><a href="{% url 'Registration'%}"><i class="bi bi-person-circle"></i>Add Doctors</a></li>
+                <li><a href="{% url 'addtask' %}"><i class="bi bi-list-task"></i>Add Task</a></li>
+                <li><a href="{% url 'showtask' %}"><i class="bi bi-list-task"></i>Show Task</a></li>
+                {% comment %} <li><a href="{% url 'edituser' %}"><i class="bi bi-pencil-square"></i>Edit User Details</a></li> {% endcomment %}
+
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header id="header">
+                <h1>Welcome to the {{ admin_name }} Admin Dashboard</h1>
+                <div class="user-info">
+                    <p>Hello, {{ admin_email }}Admin</p>
+                    <button id="logout-btn"><a href="{% url 'logout' %}">Logout</a></button>
+                </div>
+            </header>
+<div id="content">
+    {% block Content %} 
+    
+    {% endblock %} 

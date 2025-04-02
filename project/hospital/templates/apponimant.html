@@ -1,0 +1,38 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}
+Appoimant
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% 'css/appoimant.css'%}">
+{% endblock %}
+
+{% block Content %}
+
+<div> 
+    <h1>Book a Health Checkup</h1>
+    <form action="{% url 'apponimant' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <input type="text" placeholder="Select Health Package" name="package">
+        </div>
+        <div>
+            <input type="text" placeholder="Patient Name *" name="name">
+            <input type="email" placeholder="E-mail *" name="phone">
+        </div>
+        <div>
+            <input type="phone" placeholder="Phone *" name="phone">
+            <input type="text" placeholder="City Name *" name="name">
+            
+        </div>
+        <div>
+            <textarea name="details" id="" rows="5" cols="5" placeholder="Type Appoinmant Note"></textarea>
+        </div>
+        <div>
+            <input type="submit" placeholder="BOOK HEALTH PACKAGE">
+        </div>
+    </form>
+</div>
+{% endblock %}
