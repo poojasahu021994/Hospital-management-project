@@ -7,3 +7,11 @@
     height: 80px;
     width: 110px;
 }
+
+#back_img{
+    background-image: url("../Images/hop_back_img.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100wh;
+}
