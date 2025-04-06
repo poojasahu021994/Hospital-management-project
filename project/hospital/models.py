@@ -1,12 +1,12 @@
 from django.db import models
 
-class EmployeeData(models.Model):
-    emp_name=models.CharField(max_length=50)
-    emp_email=models.EmailField()
-    emp_DOJ=models.DateField()
-    emp_dep=models.CharField(max_length=50)
-    emp_contact=models.IntegerField()
-    emp_password=models.CharField(max_length=50)
-    emp_work=models.CharField(max_length=100)
+class DoctorData(models.Model):
+    doc_name=models.CharField(max_length=50)
+    doc_email=models.EmailField()
+    doc_DOJ=models.DateField()
+    doc_dep=models.CharField(max_length=50)
+    doc_contact=models.IntegerField()
+    doc_password=models.CharField(max_length=50)
+    doc_work=models.CharField(max_length=100)
     
 # Create your models here.

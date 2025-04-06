@@ -5,14 +5,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
-    /* min-height: 100vh; */
-    /* background-color: #f0f0f0;
-     */
+    background-image: url("../Images/image.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100wh;
+    
   }
 .login-container {
-    /* background-color: rgb(163, 134, 243); */
-    background-color: #403270;
+    background-color: #4682B4;
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -78,7 +79,7 @@
     font-size: 14px;
     font-weight: 600;
     /* color: #0056b3; */
-    color: #f35b1f;
+    color: #81C784;
     text-decoration: none;
   }
   

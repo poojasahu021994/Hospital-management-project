@@ -4,63 +4,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>{% block title %} Admin Dashboard {% endblock %}</title>
+    <title>{% block title %} Hospital Admin Dashboard {% endblock %}</title>
     <!-- {% block head %} {% endblock %} -->
     {% block css %} {% endblock %}
 </head>
 <body>
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-
-            <h2>Admin</h2>
-            <ul>
-                <li><a href="{% url 'admindashboard' %}"><i class="bi bi-house-door"></i>Dashboard</a></li>
-                <li><a href="{% url 'Registration'%}"><i class="bi bi-person-circle"></i>Add Employees</a></li>
-                <li><a href="{% url 'addtask' %}"><i class="bi bi-list-task"></i>Add Task</a></li>
-                <li><a href="{% url 'showtask' %}"><i class="bi bi-list-task"></i>Show Task</a></li>
-                {% comment %} <li><a href="{% url 'edituser' %}"><i class="bi bi-pencil-square"></i>Edit User Details</a></li> {% endcomment %}
-
-            </ul>
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Hospital Admin</h2>
         </div>
+        <nav>
+            <ul>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="{% url 'registration' %}">Manage Doctors</a></li>
+                <li><a href="#patients">Manage Patients</a></li>
+                <li><a href="#appointments">Appointments</a></li>
+                <li><a href="#reports">All Doctors</a></li>
+                <li><a href="#settings">Settings</a></li>
+            </ul>
+        </nav>
+    </div>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Header -->
-            <header id="header">
-                <h1>Welcome to the {{ admin_name }} Admin Dashboard</h1>
-                <div class="user-info">
-                    <p>Hello, {{ admin_email }}Admin</p>
-                    <button id="logout-btn"><a href="{% url 'logout' %}">Logout</a></button>
-                </div>
-            </header>
-<div id="content">
-    {% block Content %} 
-    
-    {% endblock %} 
-</div>
-            <!-- Stats/Content -->
-          <!-- <div class="stats">
-                <div class="card">
-                    <h3>Total Users</h3>
-                    <p>320</p>
-                </div>
-                <div class="card">
-                    <h3>Active Sessions</h3>
-                    <p>15</p>
-                </div>
-                <div class="card">
-                    <h3>Reports Generated</h3>
-                    <p>120</p>
-                </div>
-            </div>   -->
-            
-     </div>
-       
+    <div class="main-content">
+        <header>
+            <h1>Admin Dashboard</h1>
+            <div class="user-info">
+                <span>Welcome, Admin</span>
+                <button class="logout-btn">Logout</button>
+            </div>
+        </header>
+        
+        <div class="main-background">
+        
+        <div class="content"> 
+            <section id="dashboard" class="dashboard-card">
+                <h2>Dashboard Overview</h2>
+                <p>Quick overview of hospital stats, new appointments, and more.</p>
+            </section>
+
+            <section id="doctors" class="dashboard-card">
+                <h2>Manage Doctors</h2>
+                <p>Add, update, or remove doctors from the hospital database.</p>
+            </section>
+
+            <section id="patients" class="dashboard-card">
+                <h2>Manage Patients</h2>
+                <p>View, update, and delete patient records.</p>
+            </section>
+
+            <section id="appointments" class="dashboard-card">
+                <h2>Appointments</h2>
+                <p>Manage doctor appointments and schedules.</p>
+            </section>
+
+            <section id="reports" class="dashboard-card">
+                <h2>Reports</h2>
+                <p>View detailed reports on hospital operations.</p>
+            </section>
+
+            <section id="settings" class="dashboard-card">
+                <h2>Settings</h2>
+                <p>Update hospital settings, user permissions, etc.</p>
+            </section>
+        </div>
+        {% block Content %} 
+        
+        {% endblock %} 
+    </div>
     </div>
     
-
+    
 </body>
 </html>
