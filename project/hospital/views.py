@@ -1,11 +1,16 @@
 from django.shortcuts import render
 from .models import DoctorData
+from .models import Department
 
 def index(request):
     return render(request, 'index.html')
  
 def apponimant(request):
     return render(request, 'apponimant.html')
+
+def admindeshboard(request):
+    return render(request, 'admindeshboard.html' )
+
 
 def login(request):
     global adminemail
@@ -21,9 +26,7 @@ def login(request):
         user = DoctorData.objects.filter(doc_email=doc_email)
 
         if doc_email == adminemail and doc_pass == adminpass:
-            print(doc_email)
-            
-            return render(request,'admindashboard.html', {'admin_email':adminemail, 'admin_pass':adminpass, 'admin_name': adminName})
+            return render(request,'admindeshboard.html')
 
         if user.exists():
             user1 = DoctorData.objects.get(employe_email=doc_email)
@@ -56,12 +59,14 @@ def registration(request):
            name=request.POST.get('name')
            Email=request.POST.get('email')
            Number=request.POST.get('contact')
-           Specialty=request.POST.get('specialty')
+           Qualif=request.POST.get('qualification')
            joining=request.POST.get('DOJ')
            department=request.POST.get('department')
+           dep = Department.objects.get(dep_description=department)
+           dep_id =dep.id
            password=request.POST.get('password')
            cpassword=request.POST.get('cpassword')
-           print(name,Email,joining,Number,password,cpassword,Specialty,department)
+           print(name,Email,joining,Number,password,cpassword,Qualif,department,type(dep_id))
         
            user=DoctorData.objects.filter(doc_email=Email)
            if user:
@@ -69,12 +74,40 @@ def registration(request):
                 return render(request,'registration.html',{'msg':x})
            else:
                 if password==cpassword:
-                    DoctorData.objects.create(employe_name=name,employe_email=Email,contact_number=Number,date_of_joining=joining,department=department, employe_password=password)
+                    DoctorData.objects.create(doc_name=name,doc_email=Email,doc_contact=Number,doc_Que=Qualif,doc_DOJ=joining,doc_dep=dep,doc_password=password)
                     x="Registration Sucessfully"
                     return render(request,'registration.html',{'msg':x})
                 else:
                     x="password and confirm password not match"
+
                     return render(request,'registration.html',{'msg':x,'name':name,'customer_Email':Email,'customer_Number':Number,'password':password})
-    else:      
-       return render(request, 'registration.html')
-    
+    else:  
+       dep_data = Department.objects.all()   
+       return render(request, 'registration.html',{'data':dep_data})
+# def department(request):
+#     return render(request,'department.html')
+
+def department(request):
+    if request.method=="POST":
+        dep_name=request.POST.get('dep_name')
+        dep_description=request.POST.get('dep_description')
+        dep_HOD=request.POST.get('dep_HOD')
+        depdata=Department.objects.create(dep_name=dep_name,dep_description=dep_description,dep_Hod=dep_HOD)
+        depdata1=Department.objects.all()
+        # if depdata1:
+        #     user={
+        #         'name':depdata1.dep_name,
+        #         'desc':depdata1.dep_description,
+        #         'hod':depdata1.dep_Hod
+        #     }
+        # print(user)
+        # print(depdata1)
+        return render(request,'department.html', {'data':depdata1.values})
+    depdata1=Department.objects.all() 
+    return render(request,'department.html',{'data':depdata1.values})
+
+def doctorReports(request):
+    mydata=DoctorData.objects.all()
+    doc_count=mydata.count()
+    print(doc_count)
+    return render(request,'doctorReports.html', {'data':mydata, 'count':doc_count})

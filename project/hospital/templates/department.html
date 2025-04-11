@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Admin dashboard {% endblock %}
+{% block css %} <link rel="stylesheet" href="{% static 'css/department.css' %}"> {% endblock %}
+
+{% block Content %}
+
+<div class="table-container">
+    <h1 style="color: white;">Department List</h1>
+    <table border="2px solid white" id="table-data" >
+        
+            <tr>
+                <th>S.No</th>
+                <th>Department Name</th>
+                <th>Department description</th>
+                <th>Department HOD</th>
+                <th>Edit</th>
+                <th>Delete</th> 
+            </tr>
+    
+            {% for i in data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.dep_name }}</td>
+                <td>{{ i.dep_description }}</td>
+                <td>{{ i.dep_Hod}}</td>
+            {% comment %} <td><button><a href="{% url 'edituser' pk=i.id %}"><i class="fa-solid fa-pen-to-square"></i></a></button></td> {% endcomment %}
+            {% comment %} <td><button><a href="{% url 'remove' pk=i.id %}"><i class="fa-solid fa-trash"></i></a></button></td> {% endcomment %}
+            </tr>
+            {% endfor %}
+    
+    </table>
+</div>
+
+
+<div class="dep_container">
+ <form action="{% url 'department' %}" method="post" enctype="multipart/form-data" class="department-form">
+        {% csrf_token %}
+       <label for="dep_name">Department Name:</label>
+       <input type="text" name="dep_name" placeholder="Enter Department name">
+       <br>
+       <label for="dep_description">Department Description:</label>
+       <input type="text" name="dep_description" placeholder="Enter Department Description">
+       <br>
+       <label for="dep_HOD">Description HOD:</label>
+       <input type="text" name="dep_HOD" placeholder="Enter Department HOD name">
+       <br>
+       <input type="submit" value="Submit">
+   </form>
+</div>
+   <script>
+       function showValue(val) {
+           document.getElementById('volumeValue').textContent = val;
+       }
+   </script>
+{% endblock%}

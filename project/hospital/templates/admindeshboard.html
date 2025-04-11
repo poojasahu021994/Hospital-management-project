@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Admin dashboard {% endblock %}
+{% block css %} <link rel="stylesheet" href="{% static 'css/adminDashboard.css' %}"> {% endblock %}
+
+{% block Content %}
+<div class="content"> 
+            <section id="dashboard" class="dashboard-card">
+                <h2>Dashboard Overview</h2>
+                <p>Quick overview of hospital stats, new appointments, and more.</p>
+            </section>
+
+            <section id="doctors" class="dashboard-card">
+                <h2>Total Doctors {{doc_count}}</h2>
+                <p>Add, update, or remove doctors from the hospital database.</p>
+            </section>
+
+            <section id="patients" class="dashboard-card">
+                <h2>Manage Patients</h2>
+                <p>View, update, and delete patient records.</p>
+            </section>
+
+            <section id="appointments" class="dashboard-card">
+                <h2>Appointments</h2>
+                <p>Manage doctor appointments and schedules.</p>
+            </section>
+
+            <section id="reports" class="dashboard-card">
+                <h2>Reports</h2>
+                <p>View detailed reports on hospital operations.</p>
+            </section>
+
+            <section id="settings" class="dashboard-card">
+                <h2>Settings</h2>
+                <p>Update hospital settings, user permissions, etc.</p>
+            </section>
+        </div>
+
+
+{% endblock%}

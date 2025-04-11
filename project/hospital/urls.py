@@ -7,5 +7,8 @@ urlpatterns=[
     path('login',views.login, name='login'),
     path('home',views.home, name='home'),
     path('registration',views.registration, name='registration'),
+    path('department', views.department, name='department'),
+    path('admindeshboard',views.admindeshboard, name='admindeshboard'),
+    path('doctorReports',views.doctorReports,name='doctorReports'),
 
 ]

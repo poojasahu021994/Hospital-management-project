@@ -7,12 +7,13 @@
 {% block Content %}
 <div class="container">
         <h1>Doctor Registration</h1>
-        <form action="/submit-doctor" method="POST" class="registration-form">
+        <form action="{% url 'registration' %}" method="POST" class="registration-form">
+        {% csrf_token %}
             <label for="name">Doctor's Name</label>
             <input type="text" id="name" name="name" required>
         <div id="spe-cont" >
             <label for="DOJ">Date Of Joining</label>
-            <input type="text" id="DOJ" name="DOJ" required>
+            <input type="date" id="DOJ" name="DOJ" required>
 
             <label for="contact">Contact Number</label>
             <input type="tel" id="contact" name="contact" required>
@@ -28,15 +29,15 @@
         </div>              
             <label for="qualification">Qualification</label>
             <input type="text" id="qualification" name="qualification" required>
-
+          
             <label for="department">Departments</label>
             <select id="department" name="department" required>
-                <option value="">Select Departments</option>
-                <option value="hospital1">Hospital 1</option>
-                <option value="hospital2">Hospital 2</option>
-                <option value="hospital3">Hospital 3</option>
+                <option value="">Select Department</option>
+                {% for i in data %}
+                <option value="{{i.dep_description}}">{{i.dep_description}}</option>
+                {% endfor %}
             </select>
-
+          
             <button type="submit">Register Doctor</button>
         </form>
     </div>

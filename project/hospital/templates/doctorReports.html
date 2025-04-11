@@ -29,16 +29,17 @@
                 {% comment %} <td>{{ i.id }}</td> {% endcomment %}
                 <td>{{ i.doc_name }}</td>
                 <td>{{ i.doc_email }}</td>
-                <td>{{ i.doc_number }}</td>
+                <td>{{ i.doc_contact }}</td>
                 <td>{{ i.doc_dep }}</td>
                 <td>{{ i.doc_DOJ }}</td>
                 <td>{{ i.doc_password }}</td>
-            <td><button><a href="{% url 'edituser' pk=i.id %}"><i class="fa-solid fa-pen-to-square"></i></a></button></td>
-            <td><button><a href="{% url 'remove' pk=i.id %}"><i class="fa-solid fa-trash"></i></a></button></td>
+            {% comment %} <td><button><a href="{% url 'edituser' pk=i.id %}"><i class="fa-solid fa-pen-to-square"></i></a></button></td> {% endcomment %}
+            {% comment %} <td><button><a href="{% url 'remove' pk=i.id %}"><i class="fa-solid fa-trash"></i></a></button></td> {% endcomment %}
             
             </tr>
             {% endfor %}
     
     </table>
 </div>
+
 {% endblock%}

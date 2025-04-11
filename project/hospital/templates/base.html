@@ -11,6 +11,7 @@
     {% block css %} {% endblock %}
 </head>
 <body>
+<div class="container">
     <div class="sidebar">
         <div class="logo">
             <h2>Hospital Admin</h2>
@@ -18,10 +19,11 @@
         <nav>
             <ul>
                 <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="{% url 'department'%}">Add Department</a></li>
                 <li><a href="{% url 'registration' %}">Manage Doctors</a></li>
                 <li><a href="#patients">Manage Patients</a></li>
                 <li><a href="#appointments">Appointments</a></li>
-                <li><a href="#reports">All Doctors</a></li>
+                <li><a href="{% url 'doctorReports' %}">All Doctors</a></li>
                 <li><a href="#settings">Settings</a></li>
             </ul>
         </nav>
@@ -36,45 +38,13 @@
             </div>
         </header>
         
-        <div class="main-background">
-        
-        <div class="content"> 
-            <section id="dashboard" class="dashboard-card">
-                <h2>Dashboard Overview</h2>
-                <p>Quick overview of hospital stats, new appointments, and more.</p>
-            </section>
-
-            <section id="doctors" class="dashboard-card">
-                <h2>Manage Doctors</h2>
-                <p>Add, update, or remove doctors from the hospital database.</p>
-            </section>
-
-            <section id="patients" class="dashboard-card">
-                <h2>Manage Patients</h2>
-                <p>View, update, and delete patient records.</p>
-            </section>
-
-            <section id="appointments" class="dashboard-card">
-                <h2>Appointments</h2>
-                <p>Manage doctor appointments and schedules.</p>
-            </section>
-
-            <section id="reports" class="dashboard-card">
-                <h2>Reports</h2>
-                <p>View detailed reports on hospital operations.</p>
-            </section>
-
-            <section id="settings" class="dashboard-card">
-                <h2>Settings</h2>
-                <p>Update hospital settings, user permissions, etc.</p>
-            </section>
-        </div>
+        <div id="content">
         {% block Content %} 
         
         {% endblock %} 
-    </div>
+        </div>
     </div>
     
-    
+    </div>
 </body>
 </html>
