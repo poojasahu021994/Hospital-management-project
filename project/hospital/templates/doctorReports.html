@@ -6,7 +6,7 @@
 
 {% block Content %}
 
-<div class="table-container">
+<div class="container">
     <h1 style="color: white;">Doctors List</h1>
     <table border="2px solid white" id="table-data" >
         
@@ -34,7 +34,7 @@
                 <td>{{ i.doc_DOJ }}</td>
                 <td>{{ i.doc_password }}</td>
             {% comment %} <td><button><a href="{% url 'edituser' pk=i.id %}"><i class="fa-solid fa-pen-to-square"></i></a></button></td> {% endcomment %}
-            {% comment %} <td><button><a href="{% url 'remove' pk=i.id %}"><i class="fa-solid fa-trash"></i></a></button></td> {% endcomment %}
+            <td><button><a href="{% url 'removedoctor' pk=i.id %}"><i class="fa-solid fa-trash"></i></a></button></td>
             
             </tr>
             {% endfor %}

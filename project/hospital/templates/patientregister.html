@@ -1,0 +1,45 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}
+Appoimant
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/home.css'%}"> 
+{% endblock %}
+
+{% block Content %}
+
+<div class="container">
+        <h1>Patient Registration</h1>
+        <form action="{% url 'patientRegister' %}" method="POST" class="registration-form">
+        {% csrf_token %}
+            <label for="patientname">Patient's Name</label>
+            <input type="text" id="name" name="patientname" required>
+        <div id="spe-cont" >
+            <label for="patientdob">Date Of Birth</label>
+            <input type="date" id="DOJ" name="patientdob" required>
+
+            <label for="patientphone">Contact Number</label>
+            <input type="tel" id="contact" name="patientphone" required>
+
+        </div>
+            <label for="patientemail">Email Address</label>
+            <input type="email" id="email" name="patientemail" required>
+        <div id="pass-cpass">           
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="cpassword">Confirm Password</label>
+            <input type="password" id="cpassword" name="cpassword" required>
+        </div>  
+
+            <label for="address">City</label>
+            <input type="text" id="contact" name="address" required>
+
+            <a href="{% url 'login' %}"><button type="submit">Register Patient</button></a>
+        </form>
+    </div>
+
+{% endblock %}

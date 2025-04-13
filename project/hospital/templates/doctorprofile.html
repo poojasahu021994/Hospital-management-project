@@ -1,0 +1,33 @@
+{% extends "doctordeshboard.html" %}
+{% load static %}
+
+{% block title %}
+    {{ data.name }}'s Profile
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block Content %}
+<div class="profile-container">
+    <div class="profile-card">
+        <div class="profile-header">
+            <h1>{{ data.name }}</h1>
+            <p class="profile-tagline " style="color: black;">Welcome to your profile</p>
+        </div>
+
+        <div class="profile-details">
+            <div class="profile-info">
+                <p><strong>Name:</strong> <span>{{ data.name }}</span></p>
+                <p><strong>Email:</strong> <span>{{ data.email }}</span></p>
+                <p><strong>Department:</strong> <span>{{ data.department }}</span></p>
+                <p><strong>Contact:</strong> <span>{{ data.contact }}</span></p>
+                <p><strong>User Id:</strong> <span>{{ data.user_id }}</span></p>
+                <p><strong>qualification:</strong> <span>{{ data.Qualification }}</span></p>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

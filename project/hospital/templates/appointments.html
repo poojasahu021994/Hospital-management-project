@@ -1,0 +1,56 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}
+Appoimant
+{% endblock %}
+
+{% block css %}
+{% comment %} <link rel="stylesheet" href="{% 'css/appoimant.css'%}"> {% endcomment %}
+{% endblock %}
+
+{% block Content %}
+
+<div> 
+    <h1>Book a Health Checkup</h1>
+    <form action="{% url 'appointments' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+        <input type="text" placeholder="Patient Name *" name="patientname">
+            
+        </div>
+        <div>
+            <input type="date" placeholder="Date of birth" name="patientdob">
+            <input type="email" placeholder="E-mail *" name="patientemail">
+        </div>
+        <div>
+            <input type="phone" placeholder="Phone *" name="patientphone">
+            <input type="text" placeholder="Address *" name="address">
+            
+        </div>
+        <div>
+            {% comment %} <input type="phone" placeholder="Select doctor *" name="select_doc"> {% endcomment %}
+            <select id="department" name="select_doc" required>
+            <option value="">Select Doctor</option>
+                {% for i in data1 %}
+                <option value="{{i.doc_name}}">{{i.doc_name}}</option>
+                {% endfor %}
+            </select>
+            {% comment %} <input type="text" placeholder="Select department *" name="department"> {% endcomment %}
+            <select id="department" name="department" required>
+            <option value="">Select Department</option>
+                {% for i in data %}
+                <option value="{{i.dep_description}}">{{i.dep_description}}</option>
+                {% endfor %}
+            </select>
+            
+        </div>
+        <div>
+            <textarea name="details" id="" rows="5" cols="5" placeholder="Type Appoinmant Note"></textarea>
+        </div>
+        <div>
+            <a href="{% url 'appointments' %}"><input type="submit" placeholder="BOOK HEALTH PACKAGE"></a>
+        </div>
+    </form>
+</div>
+{% endblock %}

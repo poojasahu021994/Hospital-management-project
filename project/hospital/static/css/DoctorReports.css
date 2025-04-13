@@ -1,5 +1,8 @@
-.table-container h1{
+/* .table-container h1{
 text-align: center;
-align-items: center;
-align-content: center;
+
+} */
+
+.container{
+    width: 100%;
 }

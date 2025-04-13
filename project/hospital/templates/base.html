@@ -22,7 +22,7 @@
                 <li><a href="{% url 'department'%}">Add Department</a></li>
                 <li><a href="{% url 'registration' %}">Manage Doctors</a></li>
                 <li><a href="#patients">Manage Patients</a></li>
-                <li><a href="#appointments">Appointments</a></li>
+                <li><a href="{% url 'appointments' %}">Appointments</a></li>
                 <li><a href="{% url 'doctorReports' %}">All Doctors</a></li>
                 <li><a href="#settings">Settings</a></li>
             </ul>
@@ -34,7 +34,7 @@
             <h1>Admin Dashboard</h1>
             <div class="user-info">
                 <span>Welcome, Admin</span>
-                <button class="logout-btn">Logout</button>
+                <a href="{% url 'logout' %}"><button class="logout-btn" >Logout</button></a>
             </div>
         </header>
         
