@@ -5,8 +5,14 @@
 {% block css %} <link rel="stylesheet" href="{% static 'css/DoctorReports.css' %}"> {% endblock %}
 
 {% block Content %}
-
 <div class="container">
+<form action="{% url 'search' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="search" name="search">
+    <button type="submit">serch</button>
+</form>
+<a href="{% url 'doctorReports' %}">Reset All Filter</a>
+
     <h1 style="color: white;">Doctors List</h1>
     <table border="2px solid white" id="table-data" >
         
@@ -26,7 +32,6 @@
             {% for i in data %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                {% comment %} <td>{{ i.id }}</td> {% endcomment %}
                 <td>{{ i.doc_name }}</td>
                 <td>{{ i.doc_email }}</td>
                 <td>{{ i.doc_contact }}</td>

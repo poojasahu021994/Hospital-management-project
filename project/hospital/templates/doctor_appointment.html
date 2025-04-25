@@ -1,0 +1,44 @@
+{% extends 'doctordeshboard.html' %}
+{% load static %}
+
+{% block title %} Doctors Reports {% endblock %}
+{% block css %} <link rel="stylesheet" href="{% static 'css/DoctorReports.css' %}"> {% endblock %}
+
+{% block Content %}
+
+<h2>Welcome Dr. {{ data.name }}</h2>
+
+    <h3>Your Appointments</h3>
+    {% if bookings %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Patient Name</th>
+                    <th>email</th>
+                    <th>Address</th>
+                    <th>Contact Number</th>
+                    <th>Date of birth</th>
+                    <th>Details</th>
+                    <th>Department</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in bookings %}
+                <tr>
+                    <td>{{ i.name }}</td>
+                    <td>{{ i.email }}</td>
+                    <td>{{ i.address }}</td>
+                    <td>{{ i.contact }}</td>
+                    <td>{{ i.DOB }}</td>
+                    <td>{{ i.details }}</td>
+                    <td>{{ i.department }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No appointments scheduled.</p>
+    {% endif %}
+
+{% endblock%}

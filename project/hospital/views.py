@@ -2,50 +2,44 @@ from django.shortcuts import render
 from .models import DoctorData
 from .models import Department
 from .models import PatientData
-from django.contrib.auth.hashers import check_password
+from .models import BookingData
+
 
 def index(request):
     return render(request, 'index.html')
  
 def appointments(request):
     dep_data = Department.objects.all()
-    doc_name=DoctorData.objects.all()
-    return render(request, 'appointments.html',{'data':dep_data, 'data1':doc_name})
+    doc_name = DoctorData.objects.all()
+    if request.method == 'POST':
+        P_name=request.POST.get('pname')
+        P_email=request.POST.get('pemail')
+        P_address=request.POST.get('paddress')
+        P_DOB=request.POST.get('pdob')
+        P_contact=request.POST.get('pphone')
+        P_details=request.POST.get('details')
+        select_dep=request.POST.get('department')
+        print(select_dep)
+        dep = Department.objects.get(dep_description=select_dep)
+        print(dep)
+        dep_id=dep.id
+        print(dep_id)
+        select_doc=request.POST.get('select_doc')
+        print(select_doc)
+        s_doc=DoctorData.objects.get(id=select_doc)
+        print(s_doc)
+        booking=BookingData.objects.create(P_name=P_name,P_email=P_email,P_address=P_address,P_DOB=P_DOB,P_contact=P_contact,P_details=P_details,select_dep=dep)
+        booking.select_doc.set([s_doc])
+        x="Booking Suceussfully done"
+        return render(request, 'appointments.html', {'msg':x})
+    return render(request, 'appointments.html',{'data':dep_data, 'data':doc_name})
+
 
 def admindeshboard(request):
     return render(request, 'admindeshboard.html' )
 
-# def login_view(request):
-#     if request.method == 'POST':
-        # patient_email = request.POST.get('patientemail')
-        # patient_password = request.POST.get('password')
-
-        # try:
-        #     patient = PatientData.objects.get(patient_email=patient_email)
-            
-        #     # Check hashed password securely
-        #     # if check_password(patient_password, patient.patient_password):
-        #     pass1 = patient.patient_password
-
-        #     if pass1 == patient_password:
-        #         user = {
-        #             'name': patient.patient_name,
-        #             'email': patient.patient_email,
-        #             'dob': patient.patient_DOB,
-        #             'contact': patient.patient_contact,
-        #             'address': patient.patient_add,
-        #             'user_id': patient.id
-        #         }
-        #         return render(request, 'appointments.html', {'data': user})
-        #     else:
-        #         # Wrong password
-        #         return render(request, 'login.html', {'error': 'Invalid credentials'})
-        
-        # except PatientData.DoesNotExist:
-        #     # User not found
-        #     return render(request, 'login.html', {'error': 'User does not exist'})
-
-
+def contact(request):
+    return render(request, 'Contact.html' )
 
 def login(request):
     global adminemail
@@ -58,54 +52,29 @@ def login(request):
     if request.method == 'POST':
         doc_email = request.POST.get('email')
         doc_pass = request.POST.get('password')
-
         user = DoctorData.objects.filter(doc_email=doc_email)
-        patient_email = request.POST.get('patientemail')
-        patient_password = request.POST.get('password')
-
-        try:
-            patient = PatientData.objects.get(patient_email=patient_email)
-            
-            # Check hashed password securely
-            # if check_password(patient_password, patient.patient_password):
-            pass1 = patient.patient_password
+        # patient login
+        patient_email=request.POST.get('email')
+        patient_password=request.POST.get('password')
+        print(patient_email,patient_password)
+        patient=PatientData.objects.filter(patient_email=patient_email)
+        print(patient)
+        if patient.exists():
+            patient1 = PatientData.objects.get(patient_email=patient_email)
+            print(patient1)
+            pass1 = patient1.patient_password
+            print(pass1,patient_password)
 
             if pass1 == patient_password:
-                user = {
-                    'name': patient.patient_name,
-                    'email': patient.patient_email,
-                    'dob': patient.patient_DOB,
-                    'contact': patient.patient_contact,
-                    'address': patient.patient_add,
-                    'user_id': patient.id
-                }
-                return render(request, 'appointments.html', {'data': user})
-            else:
-                # Wrong password
-                return render(request, 'login.html', {'error': 'Invalid credentials'})
-        
-        except PatientData.DoesNotExist:
-            # User not found
-            return render(request, 'login.html', {'error': 'User does not exist'})
-
-        # patient login
-        # patient_email=request.POST.get('patientemail')
-        # patient_password=request.POST.get('password')
-        # patient=PatientData.objects.filter(patient_email=patient_email)
-        # if patient.exists():
-        #     patient1 = PatientData.objects.get(patient_email=patient_email)
-        #     pass1 = patient1.patient_password
-
-        #     if pass1 == patient_password:
-        #         user= {
-        #                 'name': patient1.patient_name,
-        #                 'email': patient1.patient_email,
-        #                 'dob': patient1.patient_DOB,
-        #                 'contact': patient1.patient_contact,
-        #                 'address': patient1.patient_add,
-        #                 'user_id': patient1.id   # Ensure user.id exists
-        #             }
-        #         return render(request, 'appointments.html', {'data':user})
+                user= {
+                        'name': patient1.patient_name,
+                        'email': patient1.patient_email,
+                        'dob': patient1.patient_DOB,
+                        'contact': patient1.patient_contact,
+                        'address': patient1.patient_add,
+                        'user_id': patient1.id   # Ensure user.id exists
+                    }
+                return render(request, 'appointments.html', {'data':user})
 
         if doc_email == adminemail and doc_pass == adminpass:
             return render(request,'admindeshboard.html')
@@ -183,6 +152,42 @@ def department(request):
 def doctordeshboard(request):
     return render(request,'doctordeshboard.html')
 
+#search bar
+# from django.db.models import Q
+
+# def search(request):
+#     if request.method=="POST":
+#         name=request.POST.get("search")
+#     searchdata=DoctorData.objects.filter(Q(doc_name__icontains=name) | Q(doc_email__icontains=name) | Q(doc_dep__icontains=name) | Q(doc_Que__icontains=name) | Q(doc_work__icontains=name))
+#     print(searchdata)
+#     return render(request,'doctorReports.html',{"Sdata":searchdata})
+
+from django.db.models import Q
+from django.shortcuts import render
+from .models import DoctorData
+
+def search(request):
+    if request.method == "POST":
+        name = request.POST.get("searchname", "").strip()
+        q_filter = Q(doc_name__icontains=name) | Q(doc_email__icontains=name) | Q(doc_dep__icontains=name) | Q(doc_Que__icontains=name) | Q(doc_work__icontains=name)
+
+        # Only add contact if it's numeric
+        if name.isdigit():
+            q_filter |= Q(doc_contact=name)
+
+        # Only add DOJ filter if it's a date
+        from datetime import datetime
+        try:
+            date_val = datetime.strptime(name, "%Y-%m-%d").date()
+            q_filter |= Q(doc_DOJ=date_val)
+        except ValueError:
+            pass  # Not a date
+
+        searchdata = DoctorData.objects.filter(q_filter)
+
+        return render(request, 'doctorReports.html', {'data': searchdata, 'count': searchdata.count()})
+
+
 # doctore reports
 def doctorReports(request):
     mydata=DoctorData.objects.all()
@@ -249,3 +254,132 @@ def patientRegister(request):
                 return render(request,'patientregister.html',{'msg':x,'name':patient_name,'customer_Email':patient_email,'customer_Number':patient_contact,'password':patient_password})
     else:
         return render(request, 'patientregister.html')        
+
+
+def homeData(request,pk):
+    hpatient = PatientData.objects.get(id=pk)
+    print(pk)
+    user= {
+            'name': hpatient.patient_name,
+            'email': hpatient.patient_email,
+            'dob': hpatient.patient_DOB,
+            'contact': hpatient.patient_contact,
+            'address': hpatient.patient_add,
+            'user_id': hpatient.id   # Ensure user.id exists
+        }
+    print(id)
+    return render(request, 'home.html',{'data':user})
+
+def contactData(request,pk):
+    cpatient = PatientData.objects.get(id=pk)
+    user= {
+            'name': cpatient.patient_name,
+            'email': cpatient.patient_email,
+            'dob': cpatient.patient_DOB,
+            'contact': cpatient.patient_contact,
+            'address': cpatient.patient_add,
+            'user_id': cpatient.id   # Ensure user.id exists
+        }
+    return render(request, 'Contact.html',{'data':user})
+
+def appointData(request,pk):
+    cpatient = PatientData.objects.get(id=pk)
+    user= {
+            'name': cpatient.patient_name,
+            'email': cpatient.patient_email,
+            'dob': cpatient.patient_DOB,
+            'contact': cpatient.patient_contact,
+            'address': cpatient.patient_add,
+            'user_id': cpatient.id   # Ensure user.id exists
+        }
+    return render(request, 'appointments.html',{'data':user})
+
+# appointReport function
+from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+# def doctor_appointments(request,pk):
+#     # 🧠 Assuming doctor is already logged in and stored in session
+#     doctor_id = DoctorData.objects.filter(id=pk)
+#     # doctor_id = request.session.get('doctor_id')  # or from request.user if using auth
+
+#     if doctor_id:
+#         # Doctor ko DB se lo
+#         doctor = DoctorData.objects.get(pk=doctor_id)
+#         doctor_data= {
+#             'name': doctor.doc_name,
+#             'email': doctor.doc_email,
+#             'department': doctor.doc_dep,
+#             'contact': doctor.doc_contact,
+#             'Qualification': doctor.doc_Que,
+#             'user_id': doctor.id   # Ensure user.id exists
+#         }
+
+#         # Us doctor ke appointments filter karo
+#         appointments = BookingData.objects.filter(select_doc=doctor)
+
+#         return render(request, 'doctor_appointment.html', {
+#             'appointments': appointments,
+#             'data': doctor_data
+#         })
+#     else:
+#         return render("Please login first.")
+# def doctor_appointments(request, pk):
+#     doctor_id = BookingData.objects.filter(select_doc=pk)
+#     print(doctor_id)
+    # doctor_id = PatientData.objects.filter(se=pk)
+    # if doctor_id:
+    #     doctor = DoctorData.objects.get(pk=doctor_id)
+    #     doctor_data= {
+    #         'user_id': doctor.id   
+    #     }
+   
+    # appointData=BookingData.objects.get(select_doc=doctor)
+    # booking_data={
+    #         'name': appointData.P_name,
+    #         'email': appointData.P_email,
+    #         'address': appointData.P_address,
+    #         'department': appointData.select_dep ,
+    #         'contact': appointData.P_contact,
+    #         'DOB': appointData.P_DOB,
+    #         'details': appointData.P_details,
+    #         'user_id': appointData.id
+    # }
+
+    # return render(request, 'doctor_appointment.html', {
+    #     'bookings': booking_data,
+    #     'data': doctor_data
+    # })
+from django.shortcuts import render, get_object_or_404
+from .models import BookingData, DoctorData
+
+def doctor_appointments(request, pk):
+    # Get the doctor instance
+    doctor = get_object_or_404(DoctorData, pk=pk)
+
+    # Fetch all bookings for this doctor
+    bookings = BookingData.objects.filter(select_doc=doctor)
+
+    # Optionally prepare booking data in a list of dicts
+    booking_data = []
+    for appoint in bookings:
+        booking_data.append({
+            'name': appoint.P_name,
+            'email': appoint.P_email,
+            'address': appoint.P_address,
+            'department': appoint.select_dep,
+            'contact': appoint.P_contact,
+            'DOB': appoint.P_DOB,
+            'details': appoint.P_details,
+            'user_id': appoint.id
+        })
+
+    # Doctor data context (optional)
+    doctor_data = {
+        'user_id': doctor.id,
+        # 'name': doctor.doc_name  # Assuming `DoctorData` has a name field
+    }
+
+    return render(request, 'doctor_appointment.html', {
+        'bookings': booking_data,
+        'data': doctor_data
+    })

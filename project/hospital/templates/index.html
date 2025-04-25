@@ -1,17 +1,18 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title> {% block title %} Document  {% endblock %}</title> 
     {% block css %} {% endblock %}
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar bg ">
+    <nav class="navbar navbar-expand-lg navbar bg-barck ">
         <div class="container-fluid">
           <a class="navbar-brand" href="#"><img class="navbar-logo" src="../static/Images/logo.jpg" alt=""></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,16 +20,34 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ul-auto">
+              {% if data %}
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'homeData' pk=data.user_id  %}">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">About</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'appointments' %}">Contact Us</a>
+                <a class="nav-link" href="{% url 'contactData' pk=data.user_id %}">Contact Us</a>
               </li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'patientRegister' %}" ><i class="fa-solid fa-circle-user"></i>Resigtration</a></li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'appointData' pk=data.user_id %}">Appointment</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+              </li>
+              {% else %}
+              <ul class="navbar-nav ul-auto">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'home'  %}">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                </li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'patientRegister' %}" >Registration</a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Login
@@ -38,16 +57,18 @@
                   <li><a class="dropdown-item" href="{% url 'login' %}">Doctor</a></li>
                   <li><a class="dropdown-item" href="{% url 'login' %}">patient</a></li>
                 </ul>
+
                 <!-- <ul class="navbar-nav ul-auto">
                   <li class="nav-item"><a class="nav-link" href="" ><i class="fa-solid fa-circle-user"></i>Resigtration</a></li>
                 </ul> -->
               </li>
+              {% endif %}
             </ul>
           </div>
         </div>
       </nav>
-      
-      {% block Content %}
+      <div class="back-img">
+      {% block Content %} 
 <div id="slider">
   <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
@@ -64,14 +85,14 @@
           </div>
         </div>
         <div class="carousel-item">
-          <img src="https://thumbs.dreamstime.com/b/medical-coverage-insurance-concept-hands-doctor-covering-symbols-icons-blue-background-copy-space-web-banner-template-152592412.jpg" class="d-block w-100" alt="...">
+          <img src="https://t4.ftcdn.net/jpg/08/94/34/01/360_F_894340194_gzKHb2EyMrJByZxa6989VIx7MWwRVTJs.jpg" class="d-block w-100" alt="...">
           <div class="carousel-caption d-none d-md-block">
             <h5>One of the Best Multispeciality Hospital </h5>
             <p>Some representative placeholder content for the second slide.</p>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="https://www.shutterstock.com/image-photo/doctor-utilizing-advanced-digital-tablet-600nw-2481904799.jpg" class="d-block w-100" alt="...">
+          <img src="https://www.shutterstock.com/image-photo/medical-worker-plus-icon-represents-600nw-2474393153.jpg" class="d-block w-100" alt="...">
           <div class="carousel-caption d-none d-md-block">
             <h5>blood Sample Collection Made Easy Now at your Place</h5>
             <p>Some representative placeholder content for the third slide.</p>
@@ -88,7 +109,9 @@
       </button>
     </div>
   </div>
+ 
       {% endblock %}
+       </div>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

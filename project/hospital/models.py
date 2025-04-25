@@ -74,5 +74,6 @@ class BookingData(models.Model):
     P_DOB=models.CharField(max_length=50)
     P_contact=models.BigIntegerField()
     P_details = models.CharField(max_length=100)
-    add_dep = models.ForeignKey(Department, on_delete=models.PROTECT, to_field='dep_name')
+    select_dep = models.ForeignKey(Department, on_delete=models.PROTECT, to_field='dep_name')
     select_doc = models.ManyToManyField(DoctorData)
+

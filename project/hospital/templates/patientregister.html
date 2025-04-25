@@ -6,12 +6,12 @@ Appoimant
 {% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/home.css'%}"> 
+<link rel="stylesheet" href="{% static 'css/patientregister.css'%}"> 
 {% endblock %}
 
 {% block Content %}
-
-<div class="container">
+<div id="body"> 
+<div class="reg-container">
         <h1>Patient Registration</h1>
         <form action="{% url 'patientRegister' %}" method="POST" class="registration-form">
         {% csrf_token %}
@@ -41,5 +41,5 @@ Appoimant
             <a href="{% url 'login' %}"><button type="submit">Register Patient</button></a>
         </form>
     </div>
-
+ </div>
 {% endblock %}

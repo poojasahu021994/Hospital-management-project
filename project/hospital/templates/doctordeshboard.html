@@ -22,7 +22,7 @@
         <ul>
             <li><a href="#"><i class="bi bi-house-door"></i> Dashboard</a></li>
             <li><a href="{% url 'doctorprofile' pk=data.user_id %}"><i class="bi bi-person-circle"></i> Your Profile</a></li>
-            <li><a href="{% url 'apponimant' pk=data.user_id %}"><i class="bi bi-list-task"></i> Add apponimant</a></li>
+            <li><a href="{% url 'doc_appointment' pk=data.user_id %}"><i class="bi bi-list-task"></i> Apponimant Reports</a></li>
              {% comment %}<li><a href="{% url 'reset' pk=user_id %}"><i class="bi bi-shield-lock"></i> Reset Password</a></li>{% endcomment %}
             <li><a href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li> 
         </ul>

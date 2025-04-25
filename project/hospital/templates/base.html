@@ -11,17 +11,17 @@
     {% block css %} {% endblock %}
 </head>
 <body>
-<div class="container">
+<div class="base-container">
     <div class="sidebar">
         <div class="logo">
             <h2>Hospital Admin</h2>
         </div>
         <nav>
             <ul>
-                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="{% url 'admindeshboard'%}">Dashboard</a></li>
                 <li><a href="{% url 'department'%}">Add Department</a></li>
                 <li><a href="{% url 'registration' %}">Manage Doctors</a></li>
-                <li><a href="#patients">Manage Patients</a></li>
+                {% comment %} <li><a href="#patients">Manage Patients</a></li> {% endcomment %}
                 <li><a href="{% url 'appointments' %}">Appointments</a></li>
                 <li><a href="{% url 'doctorReports' %}">All Doctors</a></li>
                 <li><a href="#settings">Settings</a></li>

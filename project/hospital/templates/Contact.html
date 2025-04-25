@@ -1,0 +1,54 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}
+Appoimant
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="../static/css/Contact.css"/>
+{% comment %} <link rel="stylesheet" href="{% static 'css/home.css'%}">  {% endcomment %}
+{% endblock %}
+
+{% block Content %}
+  <section class="contact-section">
+    <div class="container">
+      <h1>Contact Us</h1>
+      <div class="contact-container">
+        <div class="contact-info">
+          <h2>CityCare Hospital</h2>
+          <p>123 Health Avenue, Bhopal City, 462001</p>
+          <p><strong>Phone:</strong> (123) 456-7890</p>
+          <p><strong>Email:</strong> contact@citycarehospital.com</p>
+          <div class="map-responsive">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0032415100553!2d-122.42067928468123!3d37.774929779759616!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085815cbaa9b057%3A0x4e9dcb33aa09b0c3!2sHospital!5e0!3m2!1sen!2sus!4v1618314571234!5m2!1sen!2sus"
+              width="100%" height="250" frameborder="0" style="border:0;" allowfullscreen="" loading="lazy">
+            </iframe>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <h2>Send Us a Message</h2>
+          <form>
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject">
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <button type="submit">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endblock %}
+{% comment %} </body>
+</html> {% endcomment %}
