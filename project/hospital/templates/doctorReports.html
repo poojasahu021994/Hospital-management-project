@@ -38,7 +38,8 @@
                 <td>{{ i.doc_dep }}</td>
                 <td>{{ i.doc_DOJ }}</td>
                 <td>{{ i.doc_password }}</td>
-            {% comment %} <td><button><a href="{% url 'edituser' pk=i.id %}"><i class="fa-solid fa-pen-to-square"></i></a></button></td> {% endcomment %}
+                <td>{{i.doc_contact }}</td>
+            <td><button><a href="{% url 'edituser' pk=i.id %}"><i class="fa-solid fa-pen-to-square"></i></a></button></td>
             <td><button><a href="{% url 'removedoctor' pk=i.id %}"><i class="fa-solid fa-trash"></i></a></button></td>
             
             </tr>

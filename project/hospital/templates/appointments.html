@@ -5,16 +5,16 @@
 Appoimant
 {% endblock %}
 
-{% block css %}
-{% comment %} <link rel="stylesheet" href="{% 'css/appoimant.css'%}"> {% endcomment %}
-{% endblock %}
+
+{% block css %} <link rel="stylesheet" href="{% static 'css/appoimant.css' %}"> {% endblock %}
+
 
 {% block Content %}
 
 <div class="app-content"> 
 {{msg}}
     <h1>Book a Health Checkup</h1>
-    <form action="{% url 'appointments' %}" method="post" enctype="multipart/form-data">
+    <form action="{% url 'appointments' %}" method="post" enctype="multipart/form-data" class="appoimant-form">
         {% csrf_token %}
         <div>
         <input type="text" placeholder="Patient Name *" name="pname">
@@ -50,7 +50,7 @@ Appoimant
             <textarea name="details" id="" rows="5" cols="5" placeholder="Type Appoinmant Note"></textarea>
         </div>
         <div>
-            <a href="{% url 'appointments' %}"><input type="submit" placeholder="BOOK HEALTH PACKAGE"></a>
+            <a href="{% url 'appointments' %}"><button type="submit">BOOK</button></a>
         </div>
     </form>
 </div>

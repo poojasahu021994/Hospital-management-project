@@ -46,7 +46,8 @@ class DoctorData(models.Model):
     doc_name = models.CharField(max_length=50, unique=True)
     doc_email = models.EmailField()
     doc_DOJ = models.DateField()
-    doc_dep = models.ForeignKey(Department, on_delete=models.PROTECT, to_field='dep_name')
+    doc_dep = models.ForeignKey(Department, on_delete=models.PROTECT, to_field='dep_name'
+                                )
     doc_Que = models.CharField(max_length=50)
     doc_contact = models.BigIntegerField()  # Changed to BigInteger for phone numbers
     doc_password = models.CharField(max_length=50)

@@ -9,7 +9,8 @@
         <h1>Doctor Registration</h1>
         <form action="{% url 'registration' %}" method="POST" class="registration-form">
         {% csrf_token %}
-            <label for="name">Doctor's Name</label>
+           
+           
             <input type="text" id="name" name="name" required>
         <div id="spe-cont" >
             <label for="DOJ">Date Of Joining</label>

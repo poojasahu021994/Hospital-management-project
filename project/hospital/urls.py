@@ -18,6 +18,7 @@ urlpatterns=[
     path('doctordeshboard/<int:pk>',views.doctordeshboard, name='doctordeshboard'),
     path('doctorprofile/<int:pk>',views.doctorprofile, name='doctorprofile'),
     path('removedoctor/<int:pk>',views.removedoctor, name='removedoctor'),
+    path('edituser/<int:pk>',views.edituser, name='edituser'),
     path('patientRegister/',views.patientRegister, name='patientRegister'),
     path('doc_appointment/<int:pk>/',views.doctor_appointments, name='doc_appointment'),
     path('search/',views.search,name='search'),

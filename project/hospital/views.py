@@ -152,41 +152,16 @@ def department(request):
 def doctordeshboard(request):
     return render(request,'doctordeshboard.html')
 
-#search bar
-# from django.db.models import Q
-
-# def search(request):
-#     if request.method=="POST":
-#         name=request.POST.get("search")
-#     searchdata=DoctorData.objects.filter(Q(doc_name__icontains=name) | Q(doc_email__icontains=name) | Q(doc_dep__icontains=name) | Q(doc_Que__icontains=name) | Q(doc_work__icontains=name))
-#     print(searchdata)
-#     return render(request,'doctorReports.html',{"Sdata":searchdata})
-
+# search bar function
 from django.db.models import Q
-from django.shortcuts import render
-from .models import DoctorData
 
 def search(request):
-    if request.method == "POST":
-        name = request.POST.get("searchname", "").strip()
-        q_filter = Q(doc_name__icontains=name) | Q(doc_email__icontains=name) | Q(doc_dep__icontains=name) | Q(doc_Que__icontains=name) | Q(doc_work__icontains=name)
-
-        # Only add contact if it's numeric
-        if name.isdigit():
-            q_filter |= Q(doc_contact=name)
-
-        # Only add DOJ filter if it's a date
-        from datetime import datetime
-        try:
-            date_val = datetime.strptime(name, "%Y-%m-%d").date()
-            q_filter |= Q(doc_DOJ=date_val)
-        except ValueError:
-            pass  # Not a date
-
-        searchdata = DoctorData.objects.filter(q_filter)
-
-        return render(request, 'doctorReports.html', {'data': searchdata, 'count': searchdata.count()})
-
+    if request.method=="POST":
+        name=request.POST.get("search")
+        searchdata=DoctorData.objects.filter(Q(doc_name__icontains=name) | Q(doc_email__icontains=name) | Q(doc_dep__icontains=name) | Q(doc_Que__icontains=name) | Q(doc_work__icontains=name))
+        print(searchdata)
+        
+        return render(request,'doctorReports.html',{"Sdata":searchdata})
 
 # doctore reports
 def doctorReports(request):
@@ -225,6 +200,24 @@ def removedoctor(request,pk):
     stu=DoctorData.objects.all()
     
     return render(request,'admindeshboard.html',{'data':stu.values})
+
+# docter report edit function
+def edituser(request,pk):
+     print(pk)
+     user2=DoctorData.objects.get(id=pk)
+     print(user2)
+     myans1=DoctorData.objects.all()
+     if user2:  
+         user= {
+            'name': user2.doc_name,
+            'email': user2.doc_email,
+            'department': user2.doc_dep,
+            'contact': user2.doc_contact,
+            'Qualification': user2.doc_Que,
+            'DOJ': user2.doc_DOJ,
+            'user_id': user2.id    # Ensure user.id exists
+        }
+     return render(request,'admindeshboard.html', {'data2':myans1, 'data': user})
 
 # patient resigtration
 def patientRegister(request):
@@ -295,34 +288,6 @@ def appointData(request,pk):
     return render(request, 'appointments.html',{'data':user})
 
 # appointReport function
-from django.shortcuts import render
-from django.shortcuts import render, get_object_or_404
-# def doctor_appointments(request,pk):
-#     # 🧠 Assuming doctor is already logged in and stored in session
-#     doctor_id = DoctorData.objects.filter(id=pk)
-#     # doctor_id = request.session.get('doctor_id')  # or from request.user if using auth
-
-#     if doctor_id:
-#         # Doctor ko DB se lo
-#         doctor = DoctorData.objects.get(pk=doctor_id)
-#         doctor_data= {
-#             'name': doctor.doc_name,
-#             'email': doctor.doc_email,
-#             'department': doctor.doc_dep,
-#             'contact': doctor.doc_contact,
-#             'Qualification': doctor.doc_Que,
-#             'user_id': doctor.id   # Ensure user.id exists
-#         }
-
-#         # Us doctor ke appointments filter karo
-#         appointments = BookingData.objects.filter(select_doc=doctor)
-
-#         return render(request, 'doctor_appointment.html', {
-#             'appointments': appointments,
-#             'data': doctor_data
-#         })
-#     else:
-#         return render("Please login first.")
 # def doctor_appointments(request, pk):
 #     doctor_id = BookingData.objects.filter(select_doc=pk)
 #     print(doctor_id)
@@ -350,8 +315,6 @@ from django.shortcuts import render, get_object_or_404
     #     'data': doctor_data
     # })
 from django.shortcuts import render, get_object_or_404
-from .models import BookingData, DoctorData
-
 def doctor_appointments(request, pk):
     # Get the doctor instance
     doctor = get_object_or_404(DoctorData, pk=pk)
@@ -376,7 +339,6 @@ def doctor_appointments(request, pk):
     # Doctor data context (optional)
     doctor_data = {
         'user_id': doctor.id,
-        # 'name': doctor.doc_name  # Assuming `DoctorData` has a name field
     }
 
     return render(request, 'doctor_appointment.html', {
